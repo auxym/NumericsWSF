@@ -1,3 +1,5 @@
-<DnaLibrary Name="NumericsWSF" RuntimeVersion="v4.0">
-    <ExternalLibrary Path="NumericsWSF.dll" LoadFromBytes="true" ExplicitExports="true"/>
+<DnaLibrary Name="NumericsWSF" RuntimeVersion="v4.0" >
+    <ExternalLibrary Path="NumericsWSF.dll" ExplicitExports="true" Pack="true"/>
+    <Reference Path="MathNet.Numerics.dll" Pack="true" />
+    <Reference Path="FSharp.Core.dll" Pack="true" />
 </DnaLibrary>
