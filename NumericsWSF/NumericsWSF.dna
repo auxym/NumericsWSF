@@ -2,4 +2,5 @@
     <ExternalLibrary Path="NumericsWSF.dll" ExplicitExports="true" Pack="true"/>
     <Reference Path="MathNet.Numerics.dll" Pack="true" />
     <Reference Path="FSharp.Core.dll" Pack="true" />
+    <Reference Path="ExcelDna.Documentation.dll" Pack="true" />
 </DnaLibrary>

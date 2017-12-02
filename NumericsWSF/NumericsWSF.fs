@@ -1,9 +1,24 @@
 module NumericsWSF
 
 open ExcelDna.Integration
+open ExcelDna.Documentation
 open MathNet.Numerics.Interpolation
 
-[<ExcelFunction(Description="Linear Interpolation")>]
-let LININTERP (x1:float[]) (y1:float[]) (x2:float[]) =
+[<ExcelFunctionDoc(
+    Name="NUM.INTERP.LINEAR",
+    Category="Interpolation",
+    Description="Linear interpolation",
+    Remarks="Based on MathNet.Numerics.LinearSpline"
+    )>]
+let linInterp 
+        ([<ExcelArgument(Description="x values on which interpolation is based")>]
+        x1:float[])
+
+        ([<ExcelArgument(Description="y values on which interpolation is based")>]
+        y1:float[]) 
+        
+        ([<ExcelArgument(Description="x values at which interpolated values will be calculated")>]
+        x2:float[]) =
+
     let interp = LinearSpline.Interpolate(x1, y1)
     Array.map interp.Interpolate x2

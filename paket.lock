@@ -4,6 +4,8 @@ NUGET
     ExcelDna.AddIn (0.34.6)
       ExcelDna.Integration (0.34.6)
     ExcelDna.Integration (0.34.6)
+    ExcelDnaDoc (0.2.3)
+      ExcelDna.AddIn (>= 0.33.9)
     FAKE (5.0.0-beta010)
     FSharp.Core (4.2.3)
     MathNet.Numerics (3.20)
