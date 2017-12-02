@@ -8,7 +8,6 @@
 open Fake.Core
 open Fake.IO
 open Fake.IO.FileSystemOperators
-open Fake.Core.Globbing.Operators
 open Fake.DotNet.Cli
 open Fake.Core.TargetOperators
 open System
@@ -63,9 +62,7 @@ Target.Create "pack" (fun _ ->
     if res <> 0 then failwithf "ExcelDnaPack returned with a non-zero exit code"
 
     Shell.popd ()
-    //Shell.MoveFile buildDir (projBuildDir @@ "NumericsWSF-packed.xll")
     Shell.Rename (buildDir @@ "NumericsWSF.xll") (projBuildDir @@ "NumericsWSF-packed.xll") 
-    //Shell.Rename "NumericsWSF.xll" (buildDir @@ "NumericsWSF-packed.xll") 
 )
 
 // --------------------------------------------------------------------------------------
