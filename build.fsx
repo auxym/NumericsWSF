@@ -18,6 +18,7 @@ open System
 
 let projectName = "NumericsWSF"
 let buildDir  = "build"
+let projBuildDir = projectName @@ buildDir
 let fsproj = (projectName @@ (projectName + ".fsproj"))
 let dnaFile = (projectName @@ (projectName + ".dna"))
 // --------------------------------------------------------------------------------------
@@ -43,18 +44,17 @@ Target.Create "Restore" (fun _ ->
 )
 
 Target.Create "Build" (fun _ ->
-        DotnetCompile (fun opts ->
-            {opts with OutputPath = Some buildDir}
-        ) fsproj
+    DotnetCompile (fun opts ->
+        {opts with OutputPath = Some buildDir}
+    ) fsproj
+
+    Shell.CopyFile projBuildDir dnaFile
+    Shell.CopyFile projBuildDir "./packages/ExcelDna.Addin/tools/ExcelDna.xll"
+    Shell.Rename (projBuildDir @@ "NumericsWSF.xll") (projBuildDir @@ "ExcelDna.xll")
 )
 
 Target.Create "Pack" (fun _ ->
-    let projBuildDir = (projectName @@ buildDir)
-    Shell.CopyFile projBuildDir dnaFile
-    Shell.CopyFile projBuildDir "./packages/ExcelDna.Addin/tools/ExcelDna.xll"
-
     Shell.pushd projBuildDir
-    Shell.Rename "NumericsWSF.xll" "ExcelDna.xll"
     let res = Process.ExecProcess (fun o ->
         {o with FileName = "../../packages/ExcelDna.Addin/tools/ExcelDnaPack.exe"
                 Arguments = "NumericsWSF.dna"}) (TimeSpan.FromSeconds 5.0)
@@ -62,6 +62,15 @@ Target.Create "Pack" (fun _ ->
     if res <> 0 then failwithf "ExcelDnaPack returned with a non-zero exit code"
 
     Shell.popd ()
+)
+
+Target.Create "BuildDoc" (fun _ ->
+    Shell.pushd projBuildDir
+    let res = Process.ExecProcess (fun o ->
+        {o with FileName = "../../packages/ExcelDnaDoc/tools/ExcelDnaDoc.exe"
+                Arguments = "NumericsWSF.dna"}) (TimeSpan.FromSeconds 5.0)
+
+    if res <> 0 then failwithf "ExcelDnaPack returned with a non-zero exit code"
 )
 
 // --------------------------------------------------------------------------------------
@@ -73,5 +82,8 @@ Target.Create "Pack" (fun _ ->
   ==> "Restore"
   ==> "Build"
   ==> "Pack"
+
+"Build"
+  ==> "BuildDoc"
 
 Target.RunOrDefault "Pack"
