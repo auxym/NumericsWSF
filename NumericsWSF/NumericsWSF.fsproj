@@ -48,7 +48,9 @@
     <Content Include="HelpContent\bin\ExcelDna.Documentation.dll">
       <Paket>True</Paket>
     </Content>
-    <Compile Include="NumericsWSF.fs" />
+    <Compile Include="utils.fs" />
+    <Compile Include="Interpolation.fs" />
+    <Compile Include="LinAlg.fs" />
   </ItemGroup>
   <Import Project="..\.paket\Paket.Restore.targets" />
 </Project>
