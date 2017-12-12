@@ -49,6 +49,7 @@
       <Paket>True</Paket>
     </Content>
     <Compile Include="utils.fs" />
+    <Compile Include="ExcelResult.fs" />
     <Compile Include="Interpolation.fs" />
     <Compile Include="LinAlg.fs" />
   </ItemGroup>

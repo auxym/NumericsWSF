@@ -18,11 +18,18 @@ let solve
         ([<ExcelArgument(Description="Vector b (length N)")>]
         b:float[]) =
     
-    // Validate input
-    if not (Array2D.length1 A = Array2D.length2 A
-            && Array2D.length1 A = Array.length b
-            ) then failwith ""
-    
-    let Amat = CreateMatrix.DenseOfArray A
-    let xv = CreateVector.DenseOfArray b
-    Amat.Solve(xv).AsArray() |> packForCaller
+    let inputValid = 
+        // A is a square matrix
+        Array2D.length1 A = Array2D.length2 A
+        // Length of b is equal to size of A
+        && Array2D.length1 A = Array.length b
+            
+    match inputValid with
+    | false -> Array.init (Array.length b) (fun _ -> ExcelResult.valueError)
+    | true ->
+        let Amat = CreateMatrix.DenseOfArray A
+        let xv = CreateVector.DenseOfArray b
+        Amat.Solve(xv).AsArray() |> Array.map ExcelResult.Value
+
+    |> Array.map ExcelResult.toObject
+    |> packForCaller
