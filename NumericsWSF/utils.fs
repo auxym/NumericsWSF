@@ -1,4 +1,4 @@
-module Utils
+module NumericsWSF.Utils
 
 open ExcelDna.Integration
 
@@ -13,8 +13,3 @@ let packForCaller vs =
         -> Array2D.init 1 (Array.length vs) (fun i j -> vs.[j]) 
     | _ 
         -> Array2D.init (Array.length vs) 1 (fun i j -> vs.[i])
-
-let validateInputLength len input =
-    match Array.length input with
-    | x when x=len -> true
-    | _ -> false

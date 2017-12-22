@@ -1,4 +1,4 @@
-module LinAlg
+module NumericsWSF.LinAlg
 
 open ExcelDna.Integration
 open ExcelDna.Documentation
@@ -17,13 +17,13 @@ let solve
 
         ([<ExcelArgument(Description="Vector b (length N)")>]
         b:float[]) =
-    
-    let inputValid = 
+
+    let inputValid =
         // A is a square matrix
         Array2D.length1 A = Array2D.length2 A
         // Length of b is equal to size of A
         && Array2D.length1 A = Array.length b
-            
+
     match inputValid with
     | false -> Array.init (Array.length b) (fun _ -> ExcelResult.valueError)
     | true ->
