@@ -1,4 +1,4 @@
-module Interpolation
+module NumericsWSF.Interpolation
 
 open ExcelDna.Integration
 open ExcelDna.Documentation

@@ -6,53 +6,15 @@
     <DebugType>portable</DebugType>
   </PropertyGroup>
   <ItemGroup>
-    <Content Include="ExcelDna-Template.dna">
-      <Paket>True</Paket>
-    </Content>
-    <Content Include="Properties\ExcelDna.Build.props">
-      <Paket>True</Paket>
-    </Content>
-    <Content Include="ExcelDnaDoc-Template.dna">
-      <Paket>True</Paket>
-    </Content>
-    <Content Include="HelpContent\CategoryTemplate.cshtml">
-      <Paket>True</Paket>
-    </Content>
-    <Content Include="HelpContent\CommandListTemplate.cshtml">
-      <Paket>True</Paket>
-    </Content>
-    <Content Include="HelpContent\CommandTemplate.cshtml">
-      <Paket>True</Paket>
-    </Content>
-    <Content Include="HelpContent\FunctionTemplate.cshtml">
-      <Paket>True</Paket>
-    </Content>
-    <Content Include="HelpContent\helpstyle.css">
-      <Paket>True</Paket>
-    </Content>
-    <Content Include="HelpContent\MethodListTemplate.cshtml">
-      <Paket>True</Paket>
-    </Content>
-    <Content Include="HelpContent\ProjectFileTemplate.cshtml">
-      <Paket>True</Paket>
-    </Content>
-    <Content Include="HelpContent\TableOfContentsTemplate.cshtml">
-      <Paket>True</Paket>
-    </Content>
-    <Content Include="HelpContent\web.config.txt">
-      <Paket>True</Paket>
-    </Content>
-    <Content Include="HelpContent\_readme_.txt">
-      <Paket>True</Paket>
-    </Content>
-    <Content Include="HelpContent\bin\ExcelDna.Documentation.dll">
-      <Paket>True</Paket>
-    </Content>
     <Compile Include="utils.fs" />
     <Compile Include="ExcelComplex.fs" />
     <Compile Include="ExcelResult.fs" />
     <Compile Include="Interpolation.fs" />
     <Compile Include="LinAlg.fs" />
+
+    <Content Include="NumericsWSF.xll.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="..\.paket\Paket.Restore.targets" />
 </Project>
