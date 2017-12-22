@@ -9,7 +9,7 @@ open Utils
     Name="NUM.LINALG.SOLVE",
     Category="Linear Algebra",
     Description="Solve the system of linear equations Ax=b for x using QR factorization.",
-    Remarks="Based on MathNet.Numerics.Solve"
+    Remarks="Based on MathNet.Numerics.Matrix.Solve"
 )>]
 let solve
         ([<ExcelArgument(Description="Matrix A (size NxN)")>]
@@ -42,6 +42,12 @@ let eig sym (a:float[,]) =
     let v = evd.EigenVectors.AsArray()
     (w, v)
 
+[<ExcelFunctionDoc(
+    Name="NUM.LINALG.EIG",
+    Category="Linear Algebra",
+    Description="Calculate the eigenvectors and eigenvalues of matrix A",
+    Remarks="Based on MathNet.Numerics.Matrix.Evd"
+)>]
 let eigExcel A =
     let (w, v) = 
         match (eig Symmetricity.Unknown A) with
@@ -55,6 +61,12 @@ let eigExcel A =
     )
     |> Array2D.map (ExcelResult.ComplexVal >> ExcelResult.toObject)
 
+[<ExcelFunctionDoc(
+    Name="NUM.LINALG.EIGVALS",
+    Category="Linear Algebra",
+    Description="Calculate the eigenvalues of matrix A",
+    Remarks="Based on MathNet.Numerics.Matrix.Evd"
+)>]
 let eigvals A =
     match (eig Symmetricity.Unknown A) with
     | (w, _) -> w
