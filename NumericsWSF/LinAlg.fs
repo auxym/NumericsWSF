@@ -33,3 +33,31 @@ let solve
 
     |> Array.map ExcelResult.toObject
     |> packForCaller
+
+/// helper for eigenvalues
+let eig sym (a:float[,]) =
+    let A = (CreateMatrix.DenseOfArray a)
+    let evd = A.Evd(sym)
+    let w = evd.EigenValues.AsArray() |> Array.map ExcelComplex.ofComplex 
+    let v = evd.EigenVectors.AsArray()
+    (w, v)
+
+let eigExcel A =
+    let (w, v) = 
+        match (eig Symmetricity.Unknown A) with
+        | (a, b) -> (a, (Array2D.map ExcelComplex.Real b))
+
+    let size = Array.length w
+    Array2D.init size (size+1) (fun i j ->
+        match j with
+        | 0 -> w.[i]
+        | _ -> v.[i, (j-1)]
+    )
+    |> Array2D.map (ExcelResult.ComplexVal >> ExcelResult.toObject)
+
+let eigvals A =
+    match (eig Symmetricity.Unknown A) with
+    | (w, _) -> w
+
+    |> Array.map (ExcelResult.ComplexVal >> ExcelResult.toObject)
+    |> packForCaller
